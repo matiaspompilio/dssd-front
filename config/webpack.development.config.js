@@ -3,7 +3,9 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 const commonPaths = require('./common-paths')
 
+// const URL_BASE = 'http://192.168.0.11:8091'
 const URL_BASE = 'http://localhost:8091'
+
 
 const config = {
   entry: [
@@ -19,8 +21,10 @@ const config = {
     hot: true,
     inline: true,
     port: 8091,
+    disableHostCheck: true,
     headers: { 'Access-Control-Allow-Origin': '*' },
     public: URL_BASE,
+    host: '0.0.0.0',
   },
   plugins: [
     new CopyWebpackPlugin([

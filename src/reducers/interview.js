@@ -5,6 +5,9 @@ import {
   LOCATIONS_GET_REQUEST,
   LOCATIONS_GET_SUCCESS,
   LOCATIONS_GET_FAILURE,
+  USERS_GET_REQUEST,
+  USERS_GET_SUCCESS,
+  USERS_GET_FAILURE,
   RECOMMENDATIONS_GET_REQUEST,
   RECOMMENDATIONS_GET_SUCCESS,
   RECOMMENDATIONS_GET_FAILURE
@@ -60,6 +63,28 @@ const mutations = {
   }),
 
   [LOCATIONS_GET_FAILURE]: (state, err) => ({
+    ...state,
+    error: err,
+    success: false,
+    isFetching: false,
+  }),
+
+  [USERS_GET_REQUEST]: (state) => ({
+    ...state,
+    error: null,
+    success: null,
+    isFetching: true,
+  }),
+
+  [USERS_GET_SUCCESS]: (state, payload) => ({
+    ...state,
+    users: payload,
+    error: null,
+    success: true,
+    isFetching: false,
+  }),
+
+  [USERS_GET_FAILURE]: (state, err) => ({
     ...state,
     error: err,
     success: false,

@@ -24,6 +24,15 @@ export const getAllLocations = () => api({
   }
 })
 
+export const getAllUsers = () => api({
+  url: '/beauty/getAllUsers',
+  method: 'GET',
+  headers: {
+    'Content-Type': 'application/json',
+    'Access-Control-Allow-Origin': '*',
+  }
+})
+
 export const getRecommendations = ({ date, ...values }) => api({
   url: '/appointment/recommendations',
   method: 'GET',

@@ -12,36 +12,35 @@ import {
 import DatePicker from 'src/components/DatePicker'
 import Dropdown from 'src/components/Dropdown'
 
-//falta parsear la recomendacion elegida para que se muestre en los campos del formulario
 
 const rangeOptions = [
   {
-    key: '1',
+    key: 1,
     text: '8 AM a 9 AM',
     value: 1,
   },
   {
-    key: '2',
+    key: 2,
     text: '9 AM a 10 AM',
     value: 2,
   },
   {
-    key: '3',
+    key: 3,
     text: '10 AM a 11 AM',
     value: 3,
   },
   {
-    key: '4',
+    key: 4,
     text: '11 AM a 12 PM',
     value: 4,
   },
   {
-    key: '5',
+    key: 5,
     text: '12 PM a 13 PM',
     value: 5,
   },
   {
-    key: '6',
+    key: 6,
     text: '13 PM a 14 PM',
     value: 6,
   },
@@ -54,6 +53,7 @@ const InterviewForm = (
     onSubmit,
     confirm,
     recommendations,
+    recoSelected
   }
 ) => {
   const locationsOptions = locations.map((item, key) => ({
@@ -64,7 +64,7 @@ const InterviewForm = (
 
   const recoOptions = recommendations.map((item, key) => ({
     key,
-    text: `${item.locationName}, ${item.date}, ${item.range}`,
+    text: `${item.locationName}, ${item.date}, ${rangeOptions[item.range].text}`,
     value: JSON.stringify(item)
   }))
 
@@ -139,7 +139,7 @@ const InterviewForm = (
         {confirm === false && (
           <Form.Field>
             <Field
-              name='recommen'
+              name='recoSelected'
               component={Dropdown}
               placeholder='Seleccione entre las siguientes recomendaciones'
               fluid
@@ -157,6 +157,8 @@ const InterviewForm = (
             fluid
             search
             selection
+            selectedValue={recoSelected ? JSON.parse(recoSelected).locationId : undefined}
+            disabled={confirm === false}
             options={locationsOptions}
           />
         </Form.Field>
@@ -166,6 +168,8 @@ const InterviewForm = (
               <Field
                 name='date'
                 component={DatePicker}
+                date={recoSelected ? JSON.parse(recoSelected).range : undefined}
+                disabled={confirm === false}
                 pointing='top left'
                 placeholder='Ingrese la fecha estimada para la videoconferencia'
               />
@@ -175,6 +179,8 @@ const InterviewForm = (
                 type='input'
                 name='range'
                 label='Rango horario'
+                selectedValue={recoSelected ? JSON.parse(recoSelected).range : undefined}
+                disabled={confirm === false}
                 component={Dropdown}
                 placeholder='Seleccione el rango horario'
                 selection

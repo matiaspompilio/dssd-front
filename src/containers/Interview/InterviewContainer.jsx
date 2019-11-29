@@ -5,6 +5,7 @@ import { Menu, Segment, Grid } from 'semantic-ui-react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { formValueSelector } from 'redux-form'
+import moment from 'moment-timezone'
 
 class InterviewContainer extends Component {
   constructor(props) {
@@ -16,10 +17,12 @@ class InterviewContainer extends Component {
     const {
       actions: {
         getAllLocations,
+        getAllUsers
       },
 
     } = this.props
     getAllLocations()
+    getAllUsers()
   }
 
   onSubmitHandler(values) {
@@ -30,11 +33,22 @@ class InterviewContainer extends Component {
       },
       interview: {
         locationId,
-        date,
-        range,
+        date: dateForm,
+        range: rangeForm,
+        recoSelected
       }
     } = this.props
-    addInterview(values).then(() => getRecommendations({ locationId, date, range }))
+
+    const parsedReco = recoSelected ? JSON.parse(recoSelected) : null
+    const location = parsedReco ? parsedReco.locationId : locationId
+    const date = parsedReco ? moment(parsedReco.date, 'DD-MM-YYYY').toDate() : dateForm
+    const range = parsedReco ? parsedReco.range : rangeForm
+    addInterview({
+      ...values,
+      locationId: location,
+      date,
+      range,
+    }).then(() => getRecommendations({ locationId: location, date, range }))
   }
 
   render() {
@@ -44,7 +58,9 @@ class InterviewContainer extends Component {
           confirm,
         },
         locations,
-        recommendations
+        recommendations,
+        users,
+        recoSelected
       }
     } = this.props
 
@@ -64,7 +80,9 @@ class InterviewContainer extends Component {
                 recommendations={recommendations}
                 confirm={confirm}
                 locations={locations}
+                users={users}
                 onSubmit={this.onSubmitHandler}
+                recoSelected={recoSelected}
               />
             </Segment>
           </Grid.Column>
@@ -83,6 +101,7 @@ function mapStateToProps(state) {
       locationId: selector(state, 'locationId'),
       range: selector(state, 'range'),
       date: selector(state, 'date'),
+      recoSelected: selector(state, 'recoSelected'),
     }
   }
 }

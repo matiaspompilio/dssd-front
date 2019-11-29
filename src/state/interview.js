@@ -7,6 +7,7 @@ export default {
   },
   recommendations: [],
   locations: [],
+  users: [],
   error: null,
   success: null,
   isFetching: false,
