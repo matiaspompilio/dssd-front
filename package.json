@@ -45,6 +45,7 @@
     "moment-timezone": "^0.5.27",
     "path": "^0.12.7",
     "prop-types": "^15.7.2",
+    "query-string": "^6.9.0",
     "react": "^16.11.0",
     "react-dom": "^16.11.0",
     "react-hot-loader": "^4.12.15",

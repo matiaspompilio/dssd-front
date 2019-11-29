@@ -3,8 +3,8 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 const commonPaths = require('./common-paths')
 
-// const URL_BASE = 'http://192.168.0.11:8091'
-const URL_BASE = 'http://localhost:8091'
+const URL_BASE = 'http://192.168.0.11:8091'
+// const URL_BASE = 'http://localhost:8091'
 
 
 const config = {

@@ -53,7 +53,8 @@ const InterviewForm = (
     onSubmit,
     confirm,
     recommendations,
-    recoSelected
+    recoSelected,
+    users
   }
 ) => {
   const locationsOptions = locations.map((item, key) => ({
@@ -64,10 +65,15 @@ const InterviewForm = (
 
   const recoOptions = recommendations.map((item, key) => ({
     key,
-    text: `${item.locationName}, ${item.date}, ${rangeOptions[item.range].text}`,
+    text: `${item.locationName}, ${item.date}, ${rangeOptions[item.range - 1].text}`,
     value: JSON.stringify(item)
   }))
 
+  const userOptions = users.map((item, key) => ({
+    key,
+    text: item,
+    value: item,
+  }))
   return (
     <>
       <Modal
@@ -91,12 +97,9 @@ const InterviewForm = (
           </Button>
         </Modal.Actions>
       </Modal>
-      <Header as='h2' icon textAlign='center'>
-        <Icon name='users' circular />
-        <Header.Content>Entrevista</Header.Content>
-      </Header>
       <Form>
         <Form.Field>
+          <label>Solicitante</label>
           <Field
             name='applicant'
             component={Dropdown}
@@ -104,10 +107,11 @@ const InterviewForm = (
             fluid
             search
             selection
-            options={null}
+            options={userOptions}
           />
         </Form.Field>
         <Form.Field>
+          <label>Participantes</label>
           <Field
             name='participants'
             component={Dropdown}
@@ -116,28 +120,29 @@ const InterviewForm = (
             multiple
             search
             selection
-            options={null}
+            options={userOptions}
           />
         </Form.Field>
         <Form.Field>
+          <label>Número de causa</label>
           <Field
             name='caseNumber'
             component={Input}
-            label='Numero de causa'
             placeholder='Ingrese un numero de causa'
             type='number'
           />
         </Form.Field>
         <Form.Field>
+          <label>Motivo</label>
           <Field
             name='reason'
             component={Input}
-            label='Motivo'
             placeholder='Ingrese el motivo de la videoconferencia'
           />
         </Form.Field>
         {confirm === false && (
           <Form.Field>
+            <label>Recomendaciones</label>
             <Field
               name='recoSelected'
               component={Dropdown}
@@ -150,6 +155,7 @@ const InterviewForm = (
           </Form.Field>
         )}
         <Form.Field>
+          <label>Localización</label>
           <Field
             name='locationId'
             component={Dropdown}
@@ -165,36 +171,46 @@ const InterviewForm = (
         <Grid.Row>
           <Grid columns={2}>
             <Grid.Column width='50'>
-              <Field
-                name='date'
-                component={DatePicker}
-                date={recoSelected ? JSON.parse(recoSelected).range : undefined}
-                disabled={confirm === false}
-                pointing='top left'
-                placeholder='Ingrese la fecha estimada para la videoconferencia'
-              />
+              <Form.Field>
+                <label>Fecha</label>
+                <Field
+                  name='date'
+                  component={DatePicker}
+                  date={recoSelected ? JSON.parse(recoSelected).range : undefined}
+                  disabled={confirm === false}
+                  pointing='top left'
+                  placeholder='Ingrese la fecha estimada para la videoconferencia'
+                />
+              </Form.Field>
             </Grid.Column>
             <Grid.Column>
-              <Field
-                type='input'
-                name='range'
-                label='Rango horario'
-                selectedValue={recoSelected ? JSON.parse(recoSelected).range : undefined}
-                disabled={confirm === false}
-                component={Dropdown}
-                placeholder='Seleccione el rango horario'
-                selection
-                options={rangeOptions}
-              />
+              <Form.Field>
+                <label>Rango horario</label>
+                <Field
+                  type='input'
+                  name='range'
+                  selectedValue={recoSelected ? JSON.parse(recoSelected).range : undefined}
+                  disabled={confirm === false}
+                  component={Dropdown}
+                  placeholder='Seleccione el rango horario'
+                  selection
+                  options={rangeOptions}
+                />
+              </Form.Field>
             </Grid.Column>
           </Grid>
         </Grid.Row>
-        <Button
-          type='submit'
-          onClick={handleSubmit(onSubmit)}
-        >
-          Enviar
-        </Button>
+        <Grid textAlign='center'>
+          <Grid.Row>
+            <Form.Field>
+              <Button
+                onClick={handleSubmit(onSubmit)}
+              >
+                Enviar
+              </Button>
+            </Form.Field>
+          </Grid.Row>
+        </Grid>
       </Form>
     </>
   )

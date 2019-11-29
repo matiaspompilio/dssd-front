@@ -1,11 +1,18 @@
 import React, { Component } from 'react'
 import Form from 'src/components/Interview'
 import * as interviewActions from 'src/actions/interview'
-import { Menu, Segment, Grid } from 'semantic-ui-react'
+import {
+  Menu,
+  Segment,
+  Grid,
+  Header,
+  Icon
+} from 'semantic-ui-react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { formValueSelector } from 'redux-form'
 import moment from 'moment-timezone'
+import queryString from 'query-string'
 
 class InterviewContainer extends Component {
   constructor(props) {
@@ -19,7 +26,6 @@ class InterviewContainer extends Component {
         getAllLocations,
         getAllUsers
       },
-
     } = this.props
     getAllLocations()
     getAllUsers()
@@ -35,19 +41,27 @@ class InterviewContainer extends Component {
         locationId,
         date: dateForm,
         range: rangeForm,
-        recoSelected
+        recoSelected,
+        participants: participantsForm,
+      },
+      location: {
+        search
       }
     } = this.props
 
+    const taskId = search ? queryString.parse(search).id : null
+    const participants = participantsForm.join(',')
     const parsedReco = recoSelected ? JSON.parse(recoSelected) : null
     const location = parsedReco ? parsedReco.locationId : locationId
     const date = parsedReco ? moment(parsedReco.date, 'DD-MM-YYYY').toDate() : dateForm
     const range = parsedReco ? parsedReco.range : rangeForm
     addInterview({
       ...values,
+      taskId,
+      participants,
       locationId: location,
       date,
-      range,
+      range
     }).then(() => getRecommendations({ locationId: location, date, range }))
   }
 
@@ -69,12 +83,21 @@ class InterviewContainer extends Component {
         <Menu pointing secondary>
           <Menu.Item
             color='teal'
-            name='Entrevista'
+            name='Solicitud'
             active
           />
+          <Menu.Item
+            color='red'
+            name='Entrevista'
+            disabled
+          />
         </Menu>
-        <Grid columns='2' textAlign='center'>
-          <Grid.Column width='50'>
+        <Grid>
+          <Grid.Column width='100'>
+            <Header as='h2' icon textAlign='center'>
+              <Icon name='users' circular />
+              <Header.Content>Entrevista</Header.Content>
+            </Header>
             <Segment color='teal' attached='bottom' size='small'>
               <Form
                 recommendations={recommendations}
@@ -101,6 +124,8 @@ function mapStateToProps(state) {
       locationId: selector(state, 'locationId'),
       range: selector(state, 'range'),
       date: selector(state, 'date'),
+      applicant: selector(state, 'applicant'),
+      participants: selector(state, 'participants'),
       recoSelected: selector(state, 'recoSelected'),
     }
   }
