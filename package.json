@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "build": "webpack",
+    "heroku-postbuild": "webpack -p",
     "build:dev": "yarn build --mode development",
     "build:dev:watch": "yarn build:dev --watch",
     "build:dev:bundleanalyze": "yarn build:dev --addons=bundleanalyze",
