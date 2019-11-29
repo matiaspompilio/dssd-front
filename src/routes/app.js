@@ -9,7 +9,7 @@ import { PropsRoute } from 'src/components/PropsRoute'
 const AppRoutes = (props) => (
   <AppContainer {...props}>
     <Switch>
-      <PropsRoute path='/' component={Interview} {...props} />
+      <PropsRoute path='/interview' component={Interview} {...props} />
       <PropsRoute path='/appointment' component={Appointment} {...props} />
     </Switch>
   </AppContainer>
