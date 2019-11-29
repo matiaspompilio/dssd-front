@@ -13,4 +13,10 @@ app.get('/ping', function (req, res) {
 app.get('/*', function (req, res) {
   res.sendFile(path.join(__dirname, 'dist', 'index.html'));
 });
+app.get("*", (req, res) => {
+  let url = path.join(path.join(__dirname, 'dist', 'index.html'));
+  if (!url.startsWith('/app/')) // since we're on local windows
+    url = url.substring(1);
+  res.sendFile(url);
+});
 app.listen(port);
