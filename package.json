@@ -4,7 +4,6 @@
   "private": true,
   "scripts": {
     "build": "webpack",
-    "heroku-postbuild": "yarn build --mode development",
     "build:dev": "yarn build --mode development",
     "build:dev:watch": "yarn build:dev --watch",
     "build:dev:bundleanalyze": "yarn build:dev --addons=bundleanalyze",
@@ -21,7 +20,7 @@
     "serve:dev": "webpack-dev-server --mode development",
     "serve:dev:dashboard": "webpack-dashboard webpack-dev-server -- --mode development --addons=dashboard",
     "serve:prod": "yarn build:prod && live-server ./dist",
-    "start": "yarn serve:dev",
+    "start": "node server.js",
     "test": "jest --config .jest.config.js",
     "test:ci": "yarn test --ci",
     "test:watch": "jest --config .jest.config.js --watch",
