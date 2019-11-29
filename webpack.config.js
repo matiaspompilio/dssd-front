@@ -11,3 +11,14 @@ module.exports = (env, argv) => {
 
   return webpackMerge(commonConfig, envConfig, ...determineAddons(argv.addons));
 };
+
+// module.exports = {
+//   entry: [
+//     './src/index.js'
+//   ],
+//   output: {
+//     path: __dirname,
+//     publicPath: '/',
+//     filename: 'bundle.js'
+//   }
+// }
