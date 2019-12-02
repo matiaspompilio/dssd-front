@@ -1,0 +1,6 @@
+export const APPOINTMENT_CURRENT_GET_REQUEST = 'appointment-current-get-request'
+export const APPOINTMENT_CURRENT_GET_SUCCESS = 'appointment-current-get-success'
+export const APPOINTMENT_CURRENT_GET_FAILURE = 'appointment-current-get-failure'
+export const APPOINTMENT_STATE_SET_REQUEST = 'appointment-state-set-request'
+export const APPOINTMENT_STATE_SET_SUCCESS = 'appointment-state-set-success'
+export const APPOINTMENT_STATE_SET_FAILURE = 'appointment-state-set-failure'

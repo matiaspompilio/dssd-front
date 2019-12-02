@@ -3,8 +3,8 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 const commonPaths = require('./common-paths')
 
-// const URL_BASE = 'http://192.168.0.11:8091'
-const URL_BASE = 'https://dssd-front.herokuapp.com/'
+const URL_BASE = 'http://192.168.0.56:8091'
+// const URL_BASE = 'https://dssd-front.herokuapp.com/'
 
 
 const config = {

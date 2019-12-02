@@ -10,7 +10,7 @@ const AppRoutes = (props) => (
   <AppContainer {...props}>
     <Switch>
       <PropsRoute path='/interview' component={Interview} {...props} />
-      <PropsRoute path='/appointment' component={Appointment} {...props} />
+      <PropsRoute path='/appointment/:id' component={Appointment} {...props} />
     </Switch>
   </AppContainer>
 )

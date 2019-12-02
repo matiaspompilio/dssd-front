@@ -50,7 +50,7 @@ class InterviewContainer extends Component {
     } = this.props
 
     const taskId = search ? queryString.parse(search).id : null
-    const participants = participantsForm.join(',')
+    const participants = participantsForm ? participantsForm.join(',') : null
     const parsedReco = recoSelected ? JSON.parse(recoSelected) : null
     const location = parsedReco ? parsedReco.locationId : locationId
     const date = parsedReco ? moment(parsedReco.date, 'DD-MM-YYYY').toDate() : dateForm
@@ -95,8 +95,8 @@ class InterviewContainer extends Component {
         <Grid>
           <Grid.Column width='100'>
             <Header as='h2' icon textAlign='center'>
-              <Icon name='users' circular />
-              <Header.Content>Entrevista</Header.Content>
+              <Icon name='handshake outline' circular />
+              <Header.Content>Solicitud de entrevista</Header.Content>
             </Header>
             <Segment color='teal' attached='bottom' size='small'>
               <Form
