@@ -9,4 +9,12 @@ export const getAppointment = (id) => api({
   }
 })
 
-export const getNextStates = () => null
+export const setAppointmentState = (id, values) => api({
+  url: `/appointment/state?appointmentId=${id}`,
+  method: 'PUT',
+  data: values,
+  headers: {
+    'Content-Type': 'application/json',
+    'Access-Control-Allow-Origin': '*',
+  }
+})

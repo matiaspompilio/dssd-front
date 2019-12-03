@@ -21,9 +21,9 @@ export const getAppointment = (id) => (dispatch) => {
     })
 }
 
-export const setAppointmentState = (values) => (dispatch) => {
+export const setAppointmentState = (id, values) => (dispatch) => {
   dispatch({ type: APPOINTMENT_STATE_SET_REQUEST })
-  return appointmentBackend.setAppointmentState(values)
+  return appointmentBackend.setAppointmentState(id, values)
     .then((response) => {
       dispatch({ type: APPOINTMENT_STATE_SET_SUCCESS, payload: response })
     })

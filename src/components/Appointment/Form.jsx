@@ -23,7 +23,8 @@ const statesTranslate = {
   COMPLETED_IN_TERM: 'Completado en término',
   COMPLETED_WITH_DELAY: 'Completado con delay',
   INTERRUPTED_BY_TECHNICAL_PROBLEM: 'Interrumpido por problema técnico',
-  INTERRUPTED_BY_INMATE_BEHAVIOUR: 'Interrumpido por comportamiento desconocido'
+  INTERRUPTED_BY_INMATE_BEHAVIOUR: 'Interrumpido por comportamiento desconocido',
+  CANCELLED: 'Cancelado'
 }
 
 
@@ -33,6 +34,7 @@ class AppointmentForm extends Component {
       current,
       handleSubmit,
       onSubmit,
+      valid
     } = this.props
 
     const stateOptions = current.possibleStates.map((item, key) => ({
@@ -59,10 +61,12 @@ class AppointmentForm extends Component {
             options={stateOptions}
           />
         </Form.Field>
-        <Form.Field>
-          <label>Comentario</label>
+        <Form.Field
+          required
+        >
+          <label>Description</label>
           <Field
-            name='comment'
+            name='description'
             required
             component={Input}
             placeholder='Ingrese un comentario'
@@ -70,8 +74,12 @@ class AppointmentForm extends Component {
         </Form.Field>
         <Grid textAlign='center'>
           <Grid.Row>
-            <Form.Field>
+            <Form.Field
+              type='submit'
+            >
               <Button
+                type='submit'
+                disabled={!valid}
                 onClick={handleSubmit(onSubmit)}
               >
                 Aceptar

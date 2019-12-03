@@ -13,6 +13,11 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
 class AppointmentContainer extends Component {
+  constructor(props) {
+    super(props)
+    this.handleSubmit = this.handleSubmit.bind(this)
+  }
+
   componentDidMount() {
     const {
       actions: {
@@ -25,6 +30,21 @@ class AppointmentContainer extends Component {
       }
     } = this.props
     getAppointment(id)
+  }
+
+  handleSubmit(values) {
+    const {
+      actions: {
+        setAppointmentState,
+        getAppointment,
+      },
+      match: {
+        params: {
+          id,
+        }
+      }
+    } = this.props
+    setAppointmentState(id, values).then(() => getAppointment(id))
   }
 
   render() {
@@ -57,7 +77,7 @@ class AppointmentContainer extends Component {
             </Header>
             <Segment color='red' attached='bottom' size='small'>
               <Form
-                onSubmit={(values) => console.log(values)}
+                onSubmit={this.handleSubmit}
                 current={data}
               />
             </Segment>

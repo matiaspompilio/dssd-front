@@ -12,5 +12,8 @@ export default {
       caseNumber: '',
       possibleStates: []
     }
-  }
+  },
+  error: null,
+  success: null,
+  isFetching: false,
 }
