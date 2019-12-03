@@ -11,7 +11,7 @@ import {
 } from 'semantic-ui-react'
 import DatePicker from 'src/components/DatePicker'
 import Dropdown from 'src/components/Dropdown'
-
+import { required } from 'src/lib/validations/form'
 
 const rangeOptions = [
   {
@@ -54,7 +54,8 @@ const InterviewForm = (
     confirm,
     recommendations,
     recoSelected,
-    users
+    users,
+    valid
   }
 ) => {
   const locationsOptions = locations.map((item, key) => ({
@@ -98,9 +99,10 @@ const InterviewForm = (
         </Modal.Actions>
       </Modal>
       <Form>
-        <Form.Field>
+        <Form.Field required>
           <label>Solicitante</label>
           <Field
+            validate={[required]}
             name='applicant'
             component={Dropdown}
             placeholder='Seleccione el solicitante de la entrevista'
@@ -110,9 +112,10 @@ const InterviewForm = (
             options={userOptions}
           />
         </Form.Field>
-        <Form.Field>
+        <Form.Field required>
           <label>Participantes</label>
           <Field
+            validate={[required]}
             name='participants'
             component={Dropdown}
             placeholder='Seleccione los demás participantes de la entrevista'
@@ -123,16 +126,17 @@ const InterviewForm = (
             options={userOptions}
           />
         </Form.Field>
-        <Form.Field>
+        <Form.Field required>
           <label>Número de causa</label>
           <Field
+            validate={[required]}
             name='caseNumber'
             component={Input}
             placeholder='Ingrese un numero de causa'
             type='number'
           />
         </Form.Field>
-        <Form.Field>
+        <Form.Field required>
           <label>Motivo</label>
           <Field
             name='reason'
@@ -141,9 +145,10 @@ const InterviewForm = (
           />
         </Form.Field>
         {confirm === false && (
-          <Form.Field>
+          <Form.Field required>
             <label>Recomendaciones</label>
             <Field
+              validate={[required]}
               name='recoSelected'
               component={Dropdown}
               placeholder='Seleccione entre las siguientes recomendaciones'
@@ -154,9 +159,10 @@ const InterviewForm = (
             />
           </Form.Field>
         )}
-        <Form.Field>
+        <Form.Field required>
           <label>Localización</label>
           <Field
+            validate={[required]}
             name='locationId'
             component={Dropdown}
             placeholder='Seleccione la localización de la entrevista'
@@ -171,9 +177,10 @@ const InterviewForm = (
         <Grid.Row>
           <Grid columns={2}>
             <Grid.Column width='50'>
-              <Form.Field>
+              <Form.Field required>
                 <label>Fecha</label>
                 <Field
+                  validate={[required]}
                   name='date'
                   component={DatePicker}
                   date={recoSelected ? JSON.parse(recoSelected).range : undefined}
@@ -184,9 +191,10 @@ const InterviewForm = (
               </Form.Field>
             </Grid.Column>
             <Grid.Column>
-              <Form.Field>
+              <Form.Field required>
                 <label>Rango horario</label>
                 <Field
+                  validate={[required]}
                   type='input'
                   name='range'
                   selectedValue={recoSelected ? JSON.parse(recoSelected).range : undefined}
@@ -204,6 +212,8 @@ const InterviewForm = (
           <Grid.Row>
             <Form.Field>
               <Button
+                disabled={!valid}
+                color='teal'
                 onClick={handleSubmit(onSubmit)}
               >
                 Enviar
