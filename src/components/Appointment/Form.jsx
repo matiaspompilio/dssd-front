@@ -44,6 +44,8 @@ class AppointmentForm extends Component {
       text: statesTranslate[item] ? statesTranslate[item] : item,
       value: item
     }))
+
+    // if()
     return (
       <>
         <br />
