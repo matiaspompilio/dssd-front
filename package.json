@@ -43,7 +43,7 @@
     "inject-html-webpack-plugin": "^0.0.39",
     "js-cookie": "^2.2.1",
     "jwt-decode": "^2.2.0",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "moment-timezone": "^0.5.27",
     "path": "^0.12.7",
     "prop-types": "^15.7.2",
